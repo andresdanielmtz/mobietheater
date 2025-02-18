@@ -1,9 +1,8 @@
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MovieCard from "../components/MovieCard";
-import React from "react";
 
-interface Movie {
+export interface Movie {
   id: number;
   title: string;
   poster_path: string;
@@ -26,7 +25,7 @@ export default function Home() {
     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
       {movies.map((movie) => (
         <MovieCard
-          key={movie.id}
+          id={movie.id}
           title={movie.title}
           poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           rating={movie.vote_average}
