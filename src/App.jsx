@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard.js";
 import Profile from "./pages/Profile.js";
 import NavBar from "./components/NavBar.js";
 import MovieDetails from "./pages/MovieDetails.js";
+import Favorites from "./pages/Favorites.js";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/movie/:id" element={<MovieDetails />} />
+        <Route path="/favorites" element={<Favorites />} />
       </Routes>
     </>
   );

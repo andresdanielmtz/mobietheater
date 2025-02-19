@@ -1,9 +1,11 @@
-import React, { ChangeEvent, useState } from "react";
+import React, { ChangeEvent, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { FavoritesContext } from "../context/FavoritesContext";
 
 export default function NavBar() {
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
+  const favorites = useContext(FavoritesContext);
 
   function handleSearch(e: React.FormEvent) {
     e.preventDefault();
@@ -29,6 +31,9 @@ export default function NavBar() {
         <button type="submit" className="bg-blue-500 px-2 py-1 rounded">
           Search
         </button>
+        <p>
+          ⭐: <Link to="/favorites">{favorites?.favorites.size}</Link>
+        </p>
       </form>
     </nav>
   );
