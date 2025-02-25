@@ -1,7 +1,7 @@
 # Mobie Theater
 ## Mob + Movie Theater
 
-This is just an example.
+Continuous development project made to showcase advanced web development techniques using React and TMBD API. 
 
 ### Installation
 
@@ -9,8 +9,15 @@ This is just an example.
 npm i
 ```
 
+
 ### How to Run
 
 ```
 npm run dev
+```
+
+### Environment Variables 
+
+```
+VITE_MDB_API_KEY = [TMBD API Token]
 ```
