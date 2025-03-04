@@ -1,4 +1,12 @@
-import { useEffect, useState, useContext } from "react";
+import {
+  useEffect,
+  useState,
+  useContext,
+  lazy,
+  Suspense,
+  ReactNode,
+} from "react";
+const LazyImage = lazy(() => import("../components/LazyImage"));
 import { useParams } from "react-router-dom";
 import { Movie } from "./Home";
 import axios from "axios";
@@ -84,25 +92,28 @@ export default function MovieDetails() {
   }
 
   return (
-    <div>
-      <div className="p-4">
-        <img
-          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          alt={movie.title}
-        />
-        <h1 className="text-2xl font-bold">{movie.title}</h1>
-        <p>⭐ {movie.vote_average}</p>
-        <button
-          className="bg-blue-500 text-white px-4 py-2 rounded"
-          onClick={() => setFavorite(movie)}
-        >
-          {favButtonLavel}
-        </button>
-        {reviewForm}
-        <br />
-        {reviewDisplay}
-        <br />
+    <Suspense fallback={(<div className="spinner"></div>) as ReactNode}>
+      <div>
+        <div className="p-4">
+          <LazyImage
+            src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            alt={movie.title}
+            className="w-64 rounded"
+          />
+          <h1 className="text-2xl font-bold">{movie.title}</h1>
+          <p>⭐ {movie.vote_average}</p>
+          <button
+            className="bg-blue-500 text-white px-4 py-2 rounded"
+            onClick={() => setFavorite(movie)}
+          >
+            {favButtonLavel}
+          </button>
+          {reviewForm}
+          <br />
+          {reviewDisplay}
+          <br />
+        </div>
       </div>
-    </div>
+    </Suspense>
   );
 }
