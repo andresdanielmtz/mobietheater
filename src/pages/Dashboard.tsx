@@ -39,7 +39,6 @@ export default function Dashboard() {
 
   return (
     <div>
-      <h1 className="text-2xl font-semibold">Dashboard</h1>
       <div className="mt-4 p-4 bg-transparent border-2 border-blue-500 rounded-lg shadow-md text-white hover:border-blue-700 transition-colors duration-300">
         <h2 className="text-xl font-medium">Logged in as {user?.email}</h2>
         <p className="text-gray-400 mt-2">

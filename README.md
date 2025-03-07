@@ -6,9 +6,10 @@
 
 ## Delivery #1
 
-- ~~Store Favorites into Firestore database and retrieve them for the logged user~~
+- Store Favorites into Firestore database and retrieve them for the logged user
 - Add styling to Signup, Login and ~~Dashboard pages~~
-- ~~Add two or more new components to the dashboard (whatever you want buttons, sections, etc)~~
+- Add two or more new components to the dashboard (whatever you want buttons, sections, etc)
+  - We added both Comments Section and the button to order them by Ascending or Descending from it.
 
 _Deployment of these features will be available once they are all finished._
 
