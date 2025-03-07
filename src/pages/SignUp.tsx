@@ -11,7 +11,9 @@ export default function Signup() {
     e.preventDefault();
     try {
       const resp = await createUserWithEmailAndPassword(auth, email, password);
-      saveAvatar(email, resp.user.uid);
+
+      console.log(`Data: \t Email: ${email} \t UID: ${resp.user.uid}`);
+      await saveAvatar(email, resp.user.uid);
       alert(`User ${email} created!`);
       navigate("/dashboard");
       return resp.user.uid;

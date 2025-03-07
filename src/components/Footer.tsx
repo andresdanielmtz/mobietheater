@@ -15,7 +15,7 @@ const Footer = () => {
           . All Rights Reserved.
         </span>
         <ul className="flex flex-wrap items-center mt-3 text-sm font-medium text-gray-500 dark:text-gray-400 sm:mt-0">
-          <li>
+          <li key = "1" className="hover:underline me-4 md:me-6">
             <Link to="./Info" className="hover:underline me-4 md:me-6">
               About
             </Link>

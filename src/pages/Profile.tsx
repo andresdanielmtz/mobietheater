@@ -3,10 +3,16 @@ import { AuthContext } from "../context/AuthContext";
 import { db } from "../config/firebase";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { useNavigate } from "react-router-dom";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import LazyImage from "../components/LazyImage";
+import { getAvatar } from "../hook/signUpAvatar";
 export default function Profile() {
   const { user } = useContext(AuthContext);
-  const [username, setUsername] = useState("");
-  const [bio, setBio] = useState("");
+  const [username, setUsername] = useState<string>("");
+  const [bio, setBio] = useState<string>("");
+  const auth = getAuth();
+  const [profilePic, setProfilePic] = useState<string>("");
+
   const navigate = useNavigate();
   useEffect(() => {
     if (user) {
@@ -19,6 +25,19 @@ export default function Profile() {
       });
     }
   }, [user]);
+
+  /**
+   * Fetches the user's avatar from the database and sets it in the component state.
+   */
+
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      getAvatar(user.uid).then((url) => {
+        setProfilePic(url);
+      });
+    }
+  });
+
   async function handleSave() {
     if (user) {
       try {
@@ -33,10 +52,19 @@ export default function Profile() {
       }
     }
   }
+
   return (
     <div className="p-4">
       <h1>Edit Profile</h1>
+
+      <LazyImage
+        src={profilePic}
+        alt="Profile"
+        className="w-24 h-24 rounded-full"
+      />
+
       <h3>Username:</h3>
+
       <input
         type="text"
         value={username}

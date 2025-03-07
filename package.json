@@ -14,13 +14,16 @@
     "@tailwindcss/vite": "^4.0.6",
     "autoprefixer": "^10.4.20",
     "axios": "^1.7.9",
+    "create-hash": "^1.2.0",
     "crypto": "^1.0.1",
     "dotenv": "^16.4.7",
     "firebase": "^11.3.1",
     "firestore": "^1.1.6",
+    "jshashes": "^1.0.8",
     "postcss": "^8.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hash": "^0.1.1",
     "react-router-dom": "^7.1.5"
   },
   "devDependencies": {

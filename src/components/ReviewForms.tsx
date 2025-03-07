@@ -6,6 +6,8 @@ export default function ReviewForm({ movieId }: { movieId: number }) {
   const { user } = useContext(AuthContext);
   const [review, setReview] = useState("");
   async function handleSubmit(e: React.FormEvent) {
+    const currentDate = new Date();
+
     e.preventDefault();
     if (user) {
       await addDoc(collection(db, "reviews"), {
@@ -13,6 +15,7 @@ export default function ReviewForm({ movieId }: { movieId: number }) {
         review,
         userEmail: user.email,
         userId: user.uid,
+        createdAt: currentDate
       });
       setReview("");
     }

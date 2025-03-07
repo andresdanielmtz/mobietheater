@@ -84,3 +84,17 @@ button:focus-visible {
     transform: rotate(360deg);
   }
 }
+
+/* Dark mode styles */
+body.dark-mode {
+  background-color: #121212;
+  color: #ffffff;
+}
+
+body.dark-mode a {
+  color: #bb86fc;
+}
+
+body.dark-mode .comment {
+  color: #a3a3a3;
+}

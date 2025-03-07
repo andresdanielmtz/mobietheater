@@ -21,6 +21,7 @@ import {
   getDocs,
   DocumentData,
 } from "firebase/firestore";
+import Comment from "../components/Comment";
 
 const TMDB_API_KEY = import.meta.env.VITE_MDB_API_KEY;
 const TMDB_API_URL = `https://api.themoviedb.org/3/movie`;
@@ -82,15 +83,13 @@ export default function MovieDetails() {
       <div className="p-4">
         <h1>Reviews</h1>
         {reviews.map((r, index) => (
-          <p style={{ textAlign: "right" }} key={index}>
-            <strong>{r.review}</strong>
-            <br />
-            by:
-            <Link to={`../../user/${r.userId}`} relative="path">
-              {r.userEmail}
-            </Link>
-            <br />
-          </p>
+          <Comment
+            key={index}
+            text={r.review}
+            userEmail={r.userEmail}
+            userUid={r.userId}
+            currentDate={r.createdAt}
+          />
         ))}
       </div>
     );
