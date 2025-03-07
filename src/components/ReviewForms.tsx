@@ -23,21 +23,20 @@ export default function ReviewForm({ movieId }: { movieId: number }) {
     }
   }
   return (
-    <form onSubmit={handleSubmit} className="p-4">
+    <form onSubmit={handleSubmit} className="py-8">
       <textarea
-        value={review}
-        onChange={(e) => setReview(e.target.value)}
-        placeholder="Write a review..."
-        className="p-2 border"
+      value={review}
+      onChange={(e) => setReview(e.target.value)}
+      placeholder="Write a review..."
+      className="p-4 border w-full h-40"
       />
       <br />
       <br />
       <button
-        type="submit"
-        className="bg-green-500 text-white p-
-2"
+      type="submit"
+      className="bg-green-500 text-white p-4 w-full"
       >
-        Submit
+      Submit
       </button>
     </form>
   );
