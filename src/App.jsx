@@ -12,6 +12,7 @@ import Signup from "./pages/SignUp.js";
 import ProtectedRoute from "./components/ProtectedRoute.js";
 import ProfilePage from "./pages/ProfilePage.js";
 import InfoPage from "./pages/Info.js";
+import { Bounce, ToastContainer } from "react-toastify";
 function App() {
   return (
     <>
@@ -40,8 +41,21 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
-        <Route path="/info" element={<InfoPage/>} />
+        <Route path="/info" element={<InfoPage />} />
       </Routes>
+      <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick={false}
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+        transition={Bounce}
+      />{" "}
     </>
   );
 }

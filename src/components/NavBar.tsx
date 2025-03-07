@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { AuthContext } from "../context/AuthContext";
 import LogoutIcon from "./icons/LogoutIcon";
+import { toast } from "react-toastify";
 
 export default function NavBar() {
   const [query, setQuery] = useState("");
@@ -14,7 +15,7 @@ export default function NavBar() {
     authForm = [
       <Link to="/dashboard">{user.email}</Link>,
       <p>
-        ⭐: <Link to="/favorites">{favorites?.favorites.size}</Link>
+        ⭐: <Link to="/favorites" title="Favorites">{favorites?.favorites.size}</Link>
       </p>,
       <form onSubmit={handleLogout} className={"float-right md:float-left"}>
         <button type="submit" className="flex align-middle bg-blue-500 px-2 py-1 rounded">
@@ -66,6 +67,7 @@ export default function NavBar() {
   function handleLogout(event: React.FormEvent) {
     event.preventDefault();
     logout();
+    toast.info("Logged out successfully!");
     navigate(`/`);
   }
 
