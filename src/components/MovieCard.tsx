@@ -6,7 +6,10 @@ const LazyImage = lazy(() => import("./LazyImage"));
 
 export default function MovieCard({ id, title, poster, rating }: MovieProps) {
   return (
-    <>
+    <Link
+      to={`/movie/${id}`}
+      className="group block relative p-4 bg-gray-800 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
+    >
       <div
         key={id}
         className="group relative p-4 bg-gray-800 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
@@ -25,10 +28,8 @@ export default function MovieCard({ id, title, poster, rating }: MovieProps) {
           />
         </div>
 
-        <h3 className="mt-3 text-lg font-bold text-gray-100 group-hover:text-sky-400 transition-colors duration-200">
-          <Link to={`/movie/${id}`} className="block text-center">
-            {title}
-          </Link>
+        <h3 className="mt-3 text-lg font-bold text-gray-100 group-hover:text-sky-400 transition-colors duration-200 text-center">
+          {title}
         </h3>
 
         <div className="flex justify-center items-center mt-2 text-sm text-gray-300">
@@ -36,6 +37,6 @@ export default function MovieCard({ id, title, poster, rating }: MovieProps) {
           <span className="ml-1 font-semibold">{rating.toFixed(1)}</span>
         </div>
       </div>
-    </>
+    </Link>
   );
 }
