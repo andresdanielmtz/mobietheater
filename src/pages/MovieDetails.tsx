@@ -7,7 +7,7 @@ import {
   ReactNode,
 } from "react";
 const LazyImage = lazy(() => import("../components/LazyImage"));
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Movie } from "../models/Movie";
 import axios from "axios";
 import { FavoritesContext } from "../context/FavoritesContext";
@@ -23,7 +23,6 @@ import {
 } from "firebase/firestore";
 import Comment from "../components/Comment";
 import {
-  getFavorites,
   movieInEntry,
   removeFavorite,
   storeFavorites,
@@ -37,6 +36,7 @@ export default function MovieDetails() {
   const [movie, setMovie] = useState<Movie | null>(null);
   const context = useContext(FavoritesContext);
   const { user } = useContext(AuthContext);
+  const [ascending, setAscending] = useState<boolean>(false);
 
   if (!context) {
     return <div>Error: FavoritesContext is not available.</div>;
@@ -53,9 +53,16 @@ export default function MovieDetails() {
       reviewsRef,
       where("movieId", "==", parseInt(id ? id : "-1"))
     );
-
     getDocs(q).then((snapshot) => {
-      setReviews(snapshot.docs.map((doc) => doc.data()));
+      const fetchedReviews = snapshot.docs.map((doc) => doc.data());
+      const sortedReviews = fetchedReviews.sort((a, b) => {
+      if (ascending) {
+        return a.createdAt - b.createdAt;
+      } else {
+        return b.createdAt - a.createdAt;
+      }
+      });
+      setReviews(sortedReviews);
     });
   }, [id, reviews]);
 
@@ -153,6 +160,14 @@ export default function MovieDetails() {
 
           <div className="w-full space-y-4">
             {reviewForm}
+
+            <button
+              className="w-1/2 bg-green-600 hover:bg-green-700 active:bg-green-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
+              onClick={() => setAscending(!ascending)}
+            >
+            Showing: {ascending ? "Oldest" : "Newest"} first
+            </button>
+
             <div className="border-t border-gray-700 pt-4">{reviewDisplay}</div>
           </div>
         </div>
