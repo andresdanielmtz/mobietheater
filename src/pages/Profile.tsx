@@ -54,39 +54,45 @@ export default function Profile() {
   }
 
   return (
-    <div className="p-4">
-      <h1>Edit Profile</h1>
+    <div className="max-w-md mx-auto p-6 bg-transparent rounded-lg shadow-md">
+      <h1 className="text-2xl font-bold mb-4">Edit Profile</h1>
 
-      <LazyImage
-        src={profilePic}
-        alt="Profile"
-        className="w-24 h-24 rounded-full"
-      />
+      <div className="flex justify-center mb-4">
+        <LazyImage
+          src={profilePic}
+          alt="Profile"
+          className="w-24 h-24 rounded-full border-2 border-gray-300"
+        />
+      </div>
 
-      <h3>Username:</h3>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
+          Username:
+        </label>
+        <input
+          type="text"
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
+          placeholder="Username"
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+      </div>
 
-      <input
-        type="text"
-        value={username}
-        onChange={(e) => setUsername(e.target.value)}
-        placeholder="Username"
-        className="p-2 border"
-      />
-      <br />
-      <br />
-      <h3>Bio:</h3>
-      <textarea
-        value={bio}
-        onChange={(e) => setBio(e.target.value)}
-        placeholder="Bio"
-        className="p-2 border"
-      />
-      <br />
-      <br />
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 dark:text-gray-50 mb-1">
+          Bio:
+        </label>
+        <textarea
+          value={bio}
+          onChange={(e) => setBio(e.target.value)}
+          placeholder="Bio"
+          className="w-full p-2 border border-gray-300 rounded-md"
+        />
+      </div>
+
       <button
         onClick={handleSave}
-        className="bg-blue-500 text-
-white p-2"
+        className="w-full bg-blue-500 text-white p-2 rounded-md hover:bg-blue-600"
       >
         Save
       </button>

@@ -4,6 +4,7 @@ import { FavoritesContext } from "../context/FavoritesContext";
 import { AuthContext } from "../context/AuthContext";
 import LogoutIcon from "./icons/LogoutIcon";
 import { toast } from "react-toastify";
+import SearchIcon from "./icons/SearchIcon";
 
 export default function NavBar() {
   const [query, setQuery] = useState("");
@@ -15,10 +16,16 @@ export default function NavBar() {
     authForm = [
       <Link to="/dashboard">{user.email}</Link>,
       <p>
-        ⭐: <Link to="/favorites" title="Favorites">{favorites?.favorites.size}</Link>
+        ⭐:{" "}
+        <Link to="/favorites" title="Favorites">
+          {favorites?.favorites.size}
+        </Link>
       </p>,
       <form onSubmit={handleLogout} className={"float-right md:float-left"}>
-        <button type="submit" className="flex align-middle bg-blue-500 px-2 py-1 rounded">
+        <button
+          type="submit"
+          className="flex align-middle bg-blue-500 px-2 py-1 rounded"
+        >
           {" "}
           <LogoutIcon />
           Logout{" "}
@@ -76,23 +83,24 @@ export default function NavBar() {
       <Link to="/"> Home </Link>
       <Link to="/dashboard"> Dashboard </Link>
       <Link to="/profile"> Profile </Link>
-      <form onSubmit={handleSearch} className="flex gap-2 ">
-        <input
-          type="text"
-          value={query}
-          onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search movies..."
-          className="px-2 py-1 rounded"
-        />
-        <button
-          type="submit"
-          className="bg-blue-500 px-2 py-1
-   rounded"
-        >
-          �
-        </button>
+      <form onSubmit={handleSearch} className="flex gap-2 items-center">
+      <input
+        type="text"
+        value={query}
+        onChange={(e) => setQuery(e.target.value)}
+        placeholder="Search movies..."
+        className="px-4 py-2 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 bg-gray-700"
+      />
+      <button
+        type="submit"
+        className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500"
+      >
+        <SearchIcon />
+      </button>
       </form>
+      <div className="ml-auto flex gap-4 items-center">
       {authForm}
+      </div>
     </nav>
   );
 }
