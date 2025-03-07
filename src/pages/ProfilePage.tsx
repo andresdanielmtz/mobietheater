@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
 import InfoContainer from "../components/Profile/InfoContainer";
+import { getAvatar } from "../hook/signUpAvatar";
 
 interface UserProfile {
   username?: string;
@@ -27,6 +28,14 @@ const ProfilePage = () => {
   const { id } = useParams();
   const [profile, setProfile] = useState<UserProfile | null>(null);
   const [loading, setLoading] = useState(true);
+  const [avatar, setAvatar] = useState<string>("");
+
+  useEffect(() => {
+    if (!id) return;
+    getAvatar(id).then((url) => {
+      setAvatar(url);
+    });
+  }, [id]);
 
   useEffect(() => {
     if (id) {
@@ -53,7 +62,11 @@ const ProfilePage = () => {
     <div className="p-4">
       <h1>Profile Page</h1>
       {profile ? (
-        <InfoContainer username={profile.username} bio={profile.bio} avatar={profile.avatar}/>
+        <InfoContainer
+          username={profile.username}
+          bio={profile.bio}
+          avatar={avatar}
+        />
       ) : (
         <p>User profile not found.</p>
       )}
