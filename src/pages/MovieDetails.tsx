@@ -22,6 +22,12 @@ import {
   DocumentData,
 } from "firebase/firestore";
 import Comment from "../components/Comment";
+import {
+  getFavorites,
+  movieInEntry,
+  removeFavorite,
+  storeFavorites,
+} from "../hook/storeFavorites";
 
 const TMDB_API_KEY = import.meta.env.VITE_MDB_API_KEY;
 const TMDB_API_URL = `https://api.themoviedb.org/3/movie`;
@@ -54,6 +60,27 @@ export default function MovieDetails() {
   }, [id, reviews]);
 
   const { setFavorite, favorites } = context;
+
+  
+  const handleFavorite = async () => {
+    if (!movie) {
+      return;
+    }
+    if (!favorites.has(movie.id)) {
+      setFavorite(movie);
+    } else {
+      setFavorite(movie);
+    }
+
+    if (user && (await movieInEntry(user.uid, movie.id.toString()))) {
+      removeFavorite(user.uid, movie.id.toString());
+    } else if (user) {
+      storeFavorites({
+        uid: user.uid,
+        movieId: movie.id.toString(),
+      });
+    }
+  };
   let favButtonLavel = "";
 
   useEffect(() => {
@@ -119,7 +146,7 @@ export default function MovieDetails() {
           </p>
           <button
             className="w-1/2 bg-blue-600 hover:bg-blue-700 active:bg-blue-800 text-white font-semibold px-6 py-2 rounded-lg transition-all duration-300"
-            onClick={() => setFavorite(movie)}
+            onClick={handleFavorite}
           >
             {favButtonLavel}
           </button>

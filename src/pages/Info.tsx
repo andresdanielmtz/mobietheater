@@ -1,3 +1,5 @@
+// TODO: Create a page that displays some information about the team, the app and what not.
+
 const InfoPage = () => {
   return (
     <div>

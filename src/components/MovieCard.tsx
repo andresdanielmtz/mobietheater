@@ -1,14 +1,8 @@
 import { Link } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy } from "react";
+import { MovieProps } from "../models/Movie";
 
 const LazyImage = lazy(() => import("./LazyImage"));
-
-interface MovieProps {
-  id: number;
-  title: string;
-  poster: string;
-  rating: number;
-}
 
 export default function MovieCard({ id, title, poster, rating }: MovieProps) {
   return (
@@ -17,7 +11,6 @@ export default function MovieCard({ id, title, poster, rating }: MovieProps) {
         key={id}
         className="group relative p-4 bg-gray-800 text-white rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
       >
-
         {/**
          * @description
          * The image is wrapped in a div with a fixed aspect ratio of 2:3.

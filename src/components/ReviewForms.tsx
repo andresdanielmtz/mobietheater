@@ -2,6 +2,8 @@ import { useState, useContext } from "react";
 import { db } from "../config/firebase";
 import { addDoc, collection } from "firebase/firestore";
 import { AuthContext } from "../context/AuthContext";
+import { storeReview } from "../hook/storeReview";
+
 export default function ReviewForm({ movieId }: { movieId: number }) {
   const { user } = useContext(AuthContext);
   const [review, setReview] = useState("");
