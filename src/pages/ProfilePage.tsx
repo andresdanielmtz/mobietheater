@@ -2,11 +2,13 @@ import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { db } from "../config/firebase";
 import { doc, getDoc } from "firebase/firestore";
+import InfoContainer from "../components/Profile/InfoContainer";
 
 interface UserProfile {
   username?: string;
   bio?: string;
   email?: string;
+  avatar?: string;
 }
 
 /**
@@ -51,11 +53,7 @@ const ProfilePage = () => {
     <div className="p-4">
       <h1>Profile Page</h1>
       {profile ? (
-        <div>
-          <h2>{profile.username || "No Username"}</h2>
-          <p>{profile.bio || "No Bio available"}</p>
-          <p>{profile.email && `Email: ${profile.email}`}</p>
-        </div>
+        <InfoContainer username={profile.username} bio={profile.bio} avatar={profile.avatar}/>
       ) : (
         <p>User profile not found.</p>
       )}

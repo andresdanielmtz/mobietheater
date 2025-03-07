@@ -2,6 +2,7 @@ import { useState } from "react";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../config/firebase";
 import { useNavigate } from "react-router-dom";
+import { saveAvatar } from "../hook/signUpAvatar";
 export default function Signup() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,6 +11,7 @@ export default function Signup() {
     e.preventDefault();
     try {
       const resp = await createUserWithEmailAndPassword(auth, email, password);
+      saveAvatar(email, resp.user.uid);
       alert(`User ${email} created!`);
       navigate("/dashboard");
       return resp.user.uid;
@@ -17,6 +19,7 @@ export default function Signup() {
       alert((e as Error).message);
     }
   }
+
   return (
     <form onSubmit={handleSignup} className="p-4">
       <input
