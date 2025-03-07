@@ -9,6 +9,7 @@
 These new two features are:
 
 1. Individual profile pages
+   - You can now click any individual profile from the comments sections in any of the movie's details page to see it.
 2. Now comments have dates and profile pictures.
 
 _These new features are still in development._

@@ -2,6 +2,7 @@ import React, { ChangeEvent, useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FavoritesContext } from "../context/FavoritesContext";
 import { AuthContext } from "../context/AuthContext";
+import LogoutIcon from "./icons/LogoutIcon";
 
 export default function NavBar() {
   const [query, setQuery] = useState("");
@@ -16,9 +17,10 @@ export default function NavBar() {
         ⭐: <Link to="/favorites">{favorites?.favorites.size}</Link>
       </p>,
       <form onSubmit={handleLogout} className={"float-right md:float-left"}>
-        <button type="submit" className="bg-blue-500 px-2 py-1 rounded">
+        <button type="submit" className="flex align-middle bg-blue-500 px-2 py-1 rounded">
           {" "}
-          � Logout{" "}
+          <LogoutIcon />
+          Logout{" "}
         </button>
       </form>,
     ];
@@ -30,7 +32,7 @@ export default function NavBar() {
           className="bg-blue-500 px-2 py-1
    rounded"
         >
-          � Sign Up
+          Sign Up
         </button>
       </form>
     );
@@ -41,7 +43,7 @@ export default function NavBar() {
           className="bg-blue-500 px-2 py-1
    rounded"
         >
-          � Login
+          Login
         </button>
       </form>
     );
@@ -68,7 +70,7 @@ export default function NavBar() {
   }
 
   return (
-    <nav className="flex gap-4 p-4 bg-gray-800 text-white items-end">
+    <nav className="flex gap-4 p-4 bg-gray-800 text-white items-center">
       <Link to="/"> Home </Link>
       <Link to="/search"> Search </Link>
       <Link to="/dashboard"> Dashboard </Link>

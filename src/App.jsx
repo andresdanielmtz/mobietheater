@@ -11,7 +11,7 @@ import Login from "./pages/Login.js";
 import Signup from "./pages/SignUp.js";
 import ProtectedRoute from "./components/ProtectedRoute.js";
 import ProfilePage from "./pages/ProfilePage.js";
-
+import InfoPage from "./pages/Info.js";
 function App() {
   return (
     <>
@@ -40,6 +40,7 @@ function App() {
         <Route path="/favorites" element={<Favorites />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<Signup />} />
+        <Route path="/info" element={<InfoPage/>} />
       </Routes>
     </>
   );

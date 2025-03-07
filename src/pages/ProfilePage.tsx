@@ -9,6 +9,18 @@ interface UserProfile {
   email?: string;
 }
 
+/**
+ * Renders a user's profile page by:
+ * - Extracting the user ID from the URL.
+ * - Fetching user data from Firestore and storing it in component state.
+ * - Displaying a loading state until the data is retrieved.
+ * - Showing user details (username, bio, email) if available.
+ * - Handling cases where no profile is found.
+ *
+ * @component
+ * @returns A React component that displays the user's profile or a loading message.
+ */
+
 const ProfilePage = () => {
   const { id } = useParams();
   const [profile, setProfile] = useState<UserProfile | null>(null);
@@ -29,7 +41,7 @@ const ProfilePage = () => {
           setLoading(false);
         });
     } else {
-      setLoading(false) ;
+      setLoading(false);
     }
   }, [id]);
 

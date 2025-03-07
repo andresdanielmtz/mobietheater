@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import MovieCard from "../components/MovieCard";
+import Footer from "../components/Footer";
 
 export interface Movie {
   id: number;
@@ -22,15 +23,18 @@ export default function Home() {
   }, []);
 
   return (
-    <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
-      {movies.map((movie) => (
-        <MovieCard
-          id={movie.id}
-          title={movie.title}
-          poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-          rating={movie.vote_average}
-        />
-      ))}
-    </div>
+    <>
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+        {movies.map((movie) => (
+          <MovieCard
+            id={movie.id}
+            title={movie.title}
+            poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+            rating={movie.vote_average}
+          />
+        ))}
+      </div>
+      <Footer />
+    </>
   );
 }
