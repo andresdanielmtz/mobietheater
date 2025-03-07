@@ -9,9 +9,16 @@ interface CommentProps {
   userEmail: string;
   userUid: string;
   currentDate?: Timestamp;
+  originalLink?: string;
 }
 
-const Comment = ({ text, userEmail, userUid, currentDate }: CommentProps) => {
+const Comment = ({
+  text,
+  userEmail,
+  userUid,
+  currentDate,
+  originalLink,
+}: CommentProps) => {
   const [avatar, setAvatar] = useState<string>("");
 
   const parsedDate = currentDate ? currentDate.toDate() : null;
@@ -40,6 +47,15 @@ const Comment = ({ text, userEmail, userUid, currentDate }: CommentProps) => {
             </Link>
             <p className="text-sm text-white mt-1">{text}</p>
           </div>
+
+            {originalLink && (
+            <Link
+              to={`../../movie/${originalLink}`}
+              className="text-sm text-sky-600"
+            >
+              Go to original movie.
+            </Link>
+            )}
         </div>
 
         <p className="text-sm text-gray-400 ml-4">

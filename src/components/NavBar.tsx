@@ -72,7 +72,6 @@ export default function NavBar() {
   return (
     <nav className="flex gap-4 p-4 bg-gray-800 text-white items-center">
       <Link to="/"> Home </Link>
-      <Link to="/search"> Search </Link>
       <Link to="/dashboard"> Dashboard </Link>
       <Link to="/profile"> Profile </Link>
       <form onSubmit={handleSearch} className="flex gap-2 ">

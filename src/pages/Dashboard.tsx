@@ -1,65 +1,72 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../context/AuthContext";
-import { Movie } from "../models/Movie";
-import { getFavorites } from "../hook/storeFavorites";
-import { Favorite } from "../models/Favorite";
-import MovieCard from "../components/MovieCard";
+import { Review } from "../models/Review";
+import { getReviews } from "../hook/storeReview";
+import Comment from "../components/Comment";
 export default function Dashboard() {
-  const [movies, setMovies] = useState<Movie[]>([]);
-
   const { user } = useContext(AuthContext);
-  const TMDB_API_KEY = import.meta.env.VITE_MDB_API_KEY;
-  const TMDB_API_URL = `https://api.themoviedb.org/3/movie`;
-
-  // ${TMDB_API_URL}/${id}?api_key=${TMDB_API_KEY}
-
-  const [favorites, setFavorites] = useState<Favorite[]>([]);
+  const [reviews, setReviews] = useState<Review[]>([]);
+  const [ascending, setAscending] = useState<boolean>(false);
 
   useEffect(() => {
     if (!user) {
       return;
     }
 
-    getFavorites(user?.uid).then((favorites) => {
-      if (!favorites) {
+    getReviews(user?.uid).then((reviews) => {
+      console.log(`Called getReviews with ${user?.uid}`);
+      if (!reviews) {
+        console.log("No reviews found.");
+
         return;
       }
-      setFavorites(favorites);
-    });
-  }, [user]);
 
-  useEffect(() => {
-    favorites.map((favorite) => {
-      fetch(`${TMDB_API_URL}/${favorite.movieId}?api_key=${TMDB_API_KEY}`)
-        .then((response) => response.json())
-        .then((data) => {
-          setMovies((movies) => [...movies, data]);
-        });
+      /**
+       * Sort reviews by createdAt timestamp in descending order
+       */
+
+      const sortedReviews = [...reviews].sort((a, b) => {
+        if (ascending) {
+          return a.createdAt.seconds - b.createdAt.seconds;
+        } else {
+          return b.createdAt.seconds - a.createdAt.seconds;
+        }
+      });
+
+      setReviews(sortedReviews);
     });
-  }, [favorites]);
+  }, [user, ascending]);
 
   return (
     <div>
       <h1 className="text-2xl font-semibold">Dashboard</h1>
-      <h2> Logged in as {user?.email}</h2>
-
-      {favorites.length > 0 ? (
-        <div>
-          <h2 className="text-xl font-semibold mt-4">Favorites</h2>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6">
-          {movies.map((movie) => (
-              <MovieCard
-                id={movie.id}
-                title={movie.title}
-                rating={movie.vote_average}
-                poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              />
-            ))}
-          </div>
+      <div className="mt-4 p-4 bg-transparent border-2 border-blue-500 rounded-lg shadow-md text-white hover:border-blue-700 transition-colors duration-300">
+        <h2 className="text-xl font-medium">Logged in as {user?.email}</h2>
+        <p className="text-gray-400 mt-2">
+          These are the most recent comments you have done.
+        </p>
+      </div>
+      <div className="mt-4">
+        <div className="flex justify-end mb-4">
+          <button
+            onClick={() => setAscending(!ascending)}
+            className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors duration-300"
+          >
+            Showing: {ascending ? "Oldest" : "Newest"} first
+          </button>
         </div>
-      ) : (
-        <p>No favorites yet.</p>
-      )}
+      </div>
+      {reviews.map((review, index) => (
+        <div key={index}>
+          <Comment
+            text={review.review}
+            userEmail={review.userEmail}
+            userUid={user!.uid}
+            currentDate={review.createdAt}
+            originalLink={review.movieId.toString()}
+          />
+        </div>
+      ))}
     </div>
   );
 }
