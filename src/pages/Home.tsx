@@ -1,14 +1,8 @@
-import React, { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import axios from "axios";
 import MovieCard from "../components/MovieCard";
 import Footer from "../components/Footer";
-
-export interface Movie {
-  id: number;
-  title: string;
-  poster_path: string;
-  vote_average: number;
-}
+import { Movie } from "../models/Movie";
 
 export default function Home() {
   const [movies, setMovies] = useState<Movie[]>([]);
@@ -22,11 +16,22 @@ export default function Home() {
     });
   }, []);
 
+  /**
+   * ?? The spinner is now displayed on the screen while the movies are being fetched.
+   */
+
   return (
-    <>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4 p-4">
+    <Suspense
+      fallback={
+        <div className="flex h-screen w-full items-center justify-center">
+          <div className="spinner border-t-4 border-blue-500 rounded-full w-12 h-12 animate-spin"></div>
+        </div>
+      }
+    >
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-6 p-6">
         {movies.map((movie) => (
           <MovieCard
+            key={movie.id}
             id={movie.id}
             title={movie.title}
             poster={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
@@ -35,6 +40,6 @@ export default function Home() {
         ))}
       </div>
       <Footer />
-    </>
+    </Suspense>
   );
 }

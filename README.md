@@ -47,4 +47,5 @@ VITE_FIREBASE_STORAGE_BUCKET = [Firebase Storage Bucket]
 VITE_FIREBASE_MESSAGING_SENDER_ID = [Firebase Messaging Sender ID]
 VITE_FIREBASE_APPID = [Firebase App Id]
 VITE_FIREBASE_MEASUREMENTS_ID = [Firebase Measurements ID]
+VITE_GRAVATAR_KEY = [Gravatar API Key]
 ```
