@@ -4,6 +4,17 @@
 
 > Now visible at [this link!](https://mobietheater.vercel.app/)
 
+## (New) Two New Features
+
+These new two features are:
+
+1. Individual profile pages
+2. Now comments have dates and profile pictures.
+
+_These new features are still in development._
+
+---
+
 Continuous development project made to showcase advanced web development techniques using React and TMBD API.
 
 ![This is an example](./assets/screenshot.png)

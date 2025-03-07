@@ -7,7 +7,7 @@ import {
   ReactNode,
 } from "react";
 const LazyImage = lazy(() => import("../components/LazyImage"));
-import { useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { Movie } from "./Home";
 import axios from "axios";
 import { FavoritesContext } from "../context/FavoritesContext";
@@ -30,6 +30,7 @@ export default function MovieDetails() {
   const [movie, setMovie] = useState<Movie | null>(null);
   const context = useContext(FavoritesContext);
   const { user } = useContext(AuthContext);
+
   if (!context) {
     return <div>Error: FavoritesContext is not available.</div>;
   }
@@ -84,7 +85,11 @@ export default function MovieDetails() {
           <p style={{ textAlign: "right" }} key={index}>
             <strong>{r.review}</strong>
             <br />
-            by: {r.userEmail}
+            by:
+            <Link to={`../../user/${r.userId}`} relative="path">
+              {r.userEmail}
+            </Link>
+            <br />
           </p>
         ))}
       </div>
